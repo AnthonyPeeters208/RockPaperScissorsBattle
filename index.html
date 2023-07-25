@@ -3,6 +3,17 @@
 <style>
     html *{
         font-family: Arial, sans-serif;
+        color: white;
+    }
+    .center{
+        margin: auto;
+        text-align: center;
+    }
+    body{
+        background-color: #1b1b1b;
+    }
+    #battlecanvas{
+        background-color: white;
     }
 </style>
 <head>
@@ -10,11 +21,15 @@
     <title>Rock Paper Scissors Battle</title>
 </head>
 <body>
-  <h1>Welcome to my Rock, Paper, Scissors Battle simulation!</h1>
-  <p>emoji's: 🪨 📃 ✂️</p>
+    <div class="center">
+        <h1>Welcome to my Rock, Paper, Scissors Battle simulation!</h1>
+        <p>emoji's: 🪨 📃 ✂️</p>
+    </div>
 
-    <div>
+
+    <div class="center">
         <p id="test">test failed :(</p>
+        <canvas id="battlecanvas"></canvas>
         <script type="module" src="js_src/main.js"></script>
     </div>
 </body>
