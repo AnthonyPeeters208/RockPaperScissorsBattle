@@ -28,3 +28,17 @@ function draw() {
     ctx.fillText(scissor_emoji, 200, 150);
 }
 draw();
+
+// MOVEMENT TEST
+let tempcoord = {x: 0, y: 0};
+function testmove(){
+    const ctx = document.getElementById("battlecanvas").getContext("2d");
+    ctx.font = "48px serif";
+    ctx.fillText(rock_emoji, tempcoord.x, tempcoord.y);
+    tempcoord.x += 1;
+    tempcoord.y += 1;
+    window.requestAnimationFrame(testmove);
+}
+window.requestAnimationFrame(testmove);
+
+
