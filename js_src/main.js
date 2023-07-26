@@ -12,6 +12,13 @@ const battle_canvas = document.getElementById("battlecanvas");
 battle_canvas.width = canvas_dim;
 battle_canvas.height = canvas_dim;
 
+// map the start button
+const startbutton = document.getElementById("startbutton");
+function clickstartbutton(){
+    alert("This doesn't work yet c:");
+}
+startbutton.addEventListener("click", clickstartbutton);
+
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
@@ -38,3 +45,5 @@ function moveAllItems(){
     window.requestAnimationFrame(moveAllItems);
 }
 window.requestAnimationFrame(moveAllItems); // initial call
+
+
