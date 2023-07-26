@@ -41,7 +41,9 @@
 </style>
 <head>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <title>Rock Paper Scissors Battle</title>
+
 </head>
 <body>
     <div class="center">
@@ -55,7 +57,7 @@
 
         <script>
             let slider = document.getElementById("slider");
-            var output = document.getElementById("slidervalue");
+            let output = document.getElementById("slidervalue");
             output.innerHTML = slider.value; // Display the default slider value
             // Update the current slider value (each time you drag the slider handle)
             slider.oninput = function() {
