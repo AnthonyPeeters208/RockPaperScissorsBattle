@@ -1,5 +1,3 @@
-document.getElementById("test").innerHTML = "Test succeeded :)";
-
 import {Rock} from "./Rock.js";
 import {Paper} from "./Paper.js";
 import {Scissors} from "./Scissors.js";
@@ -30,7 +28,6 @@ function calcFontsize(){
     let maxfontsize = 48;
     let maxspawn  = document.getElementById("slider").max;
     let fontsize = Math.round(maxfontsize - (itemsRPS.length/maxspawn)*28);
-    console.log(fontsize);
     return fontsize;
 }
 let fontSize = calcFontsize();
@@ -85,7 +82,6 @@ function moveAllItems(){
     const ctx = document.getElementById("battlecanvas").getContext("2d");
     ctx.clearRect(0, 0, canvas_dim, canvas_dim);
     ctx.font = fontSize + "px serif";
-    console.log(ctx.font);
     ctx.textAlign = "center";   // put point in center
 
     for(let i=0; i<itemsRPS.length; i++){
@@ -97,6 +93,7 @@ function moveAllItems(){
     for(let i=0; i<itemsRPS.length; i++){
         itemsRPS[i].draw(ctx);
     }
+    updateAmounts();
 
     window.requestAnimationFrame(moveAllItems);
 }
@@ -119,6 +116,12 @@ function checkCollisions(){
                     itemA.collision();
                     itemB.collision();
                     // cast to different type later
+                    if(itemA instanceof Rock && itemB instanceof Paper){itemsRPS[i] = new Paper(itemA.x, itemA.y, itemA.vx, itemA.vy)}
+                    else if(itemA instanceof Rock && itemB instanceof Scissors){itemsRPS[j] = new Rock(itemB.x, itemB.y, itemB.vx, itemB.vy)}
+                    else if(itemA instanceof Paper && itemB instanceof Scissors){itemsRPS[i] = new Scissors(itemA.x, itemA.y, itemA.vx, itemA.vy)}
+                    else if(itemA instanceof Paper && itemB instanceof Rock){itemsRPS[j] = new Paper(itemB.x, itemB.y, itemB.vx, itemB.vy)}
+                    else if(itemA instanceof Scissors && itemB instanceof Paper){itemsRPS[j] = new Scissors(itemB.x, itemB.y, itemB.vx, itemB.vy)}
+                    else if(itemA instanceof Scissors && itemB instanceof Rock){itemsRPS[i] = new Rock(itemA.x, itemA.y, itemA.vx, itemA.vy)}
                 }
             }
         }
