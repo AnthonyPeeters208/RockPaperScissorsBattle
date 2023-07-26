@@ -81,8 +81,6 @@ function updateAmounts(){
 }
 
 
-
-
 function moveAllItems(){
     const ctx = document.getElementById("battlecanvas").getContext("2d");
     ctx.clearRect(0, 0, canvas_dim, canvas_dim);
@@ -93,9 +91,38 @@ function moveAllItems(){
     for(let i=0; i<itemsRPS.length; i++){
         let currItem = itemsRPS[i];
         currItem.move(canvas_dim, canvas_dim);
-        currItem.draw(ctx);
+
     }
+    checkCollisions();
+    for(let i=0; i<itemsRPS.length; i++){
+        itemsRPS[i].draw(ctx);
+    }
+
     window.requestAnimationFrame(moveAllItems);
+}
+
+function checkCollisions(){
+    let charheight = fontSize * 0.8;
+    let charwidth = fontSize * 0.8;
+    for(let i=0; i<itemsRPS.length; i++){
+        for(let j=0; j<itemsRPS.length; j++){
+            if(i !== j){
+                let itemA = itemsRPS[i];
+                let itemB = itemsRPS[j];
+                if (
+                    itemA.x < itemB.x + charwidth &&
+                    itemA.x + charwidth > itemB.x &&
+                    itemA.y < itemB.y + charheight &&
+                    itemA.y + charheight > itemB.y
+                ) {
+                    // Collision detected!
+                    itemA.collision();
+                    itemB.collision();
+                    // cast to different type later
+                }
+            }
+        }
+    }
 }
 // Initial
 spawnItems();

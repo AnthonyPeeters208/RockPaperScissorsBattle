@@ -22,6 +22,14 @@ class RPSObject{
         }
     }
 
+    collision(){
+        // temporary, this isn't yet correct
+        this.vx = -this.vx
+        this.vy = -this.vy
+        this.x += this.vx;
+        this.y += this.vy;
+    }
+
     draw(ctx){
         // Draw itself, using 2D context from canvas
         ctx.fillText(this.text, this.x, this.y);
