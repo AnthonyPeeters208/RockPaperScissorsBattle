@@ -25,6 +25,17 @@ function minusoneorone(){
 
 let itemsRPS = [];
 
+function calcFontsize(){
+    // scale in proportion to the max size
+    let maxfontsize = 48;
+    let maxspawn  = document.getElementById("slider").max;
+    let fontsize = Math.round(maxfontsize - (itemsRPS.length/maxspawn)*28);
+    console.log(fontsize);
+    return fontsize;
+}
+let fontSize = calcFontsize();
+
+
 function spawnItems(){
     itemsRPS = [];  // clear all items
     let amount = document.getElementById("slidervalue").innerHTML;
@@ -33,7 +44,6 @@ function spawnItems(){
     for(let j=0; j < amount; j++){
         let xspeed = minusoneorone() + (minusoneorone() * Math.random()) ;   // some number [-2, 2]
         let yspeed = minusoneorone() + (minusoneorone() * Math.random());
-        console.log(xspeed + " and " + yspeed);
 
         if(j <= Math.floor(amount * 0.25)){
             itemsRPS.push(new Scissors(getRandomInt(canvas_dim), getRandomInt(canvas_dim), xspeed, yspeed));
@@ -53,6 +63,7 @@ function spawnItems(){
         }
     }
     updateAmounts();    // update
+    fontSize = calcFontsize();
 }
 
 function updateAmounts(){
@@ -70,10 +81,13 @@ function updateAmounts(){
 }
 
 
+
+
 function moveAllItems(){
     const ctx = document.getElementById("battlecanvas").getContext("2d");
     ctx.clearRect(0, 0, canvas_dim, canvas_dim);
-    ctx.font = "48px serif";
+    ctx.font = fontSize + "px serif";
+    console.log(ctx.font);
     ctx.textAlign = "center";   // put point in center
 
     for(let i=0; i<itemsRPS.length; i++){
