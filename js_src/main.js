@@ -1,44 +1,40 @@
 document.getElementById("test").innerHTML = "Test succeeded :)";
 
+import {Rock} from "./Rock.js";
+import {Paper} from "./Paper.js";
+import {Scissors} from "./Scissors.js";
+
 // Change battle canvas style
-let canvas_dim = Math.min(screen.width, screen.height) * 0.7;
-console.log("Canvas dim: " + canvas_dim);
+//let canvas_dim = Math.round(Math.min(window.innerWidth, window.innerHeight) * 0.9);
+let canvas_dim = Math.round((Math.max(window.innerWidth, window.innerHeight) * 0.4));
+console.log("Canvas dim: " + canvas_dim + "x" + canvas_dim);
 const battle_canvas = document.getElementById("battlecanvas");
 battle_canvas.width = canvas_dim;
 battle_canvas.height = canvas_dim;
 
-// Draw on the canvas
-const ctx = battle_canvas.getContext("2d");
-const rock_emoji = "🪨";
-const paper_emoji = "📃";
-const scissor_emoji = "✂️"
-
-// temp test
-ctx.fillStyle = "rgb(200, 0, 0)";
-ctx.fillRect(10, 10, 50, 50);
-ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
-ctx.fillRect(30, 30, 50, 50);
-
-// emoji test
-function draw() {
-    const ctx = document.getElementById("battlecanvas").getContext("2d");
-    ctx.font = "48px serif";
-    ctx.fillText(rock_emoji, 100, 150);
-    ctx.fillText(paper_emoji, 150, 150);
-    ctx.fillText(scissor_emoji, 200, 150);
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
 }
-draw();
 
-// MOVEMENT TEST
-let tempcoord = {x: 0, y: 0};
-function testmove(){
+
+const itemsRPS = [];
+itemsRPS.push(new Rock(getRandomInt(canvas_dim), getRandomInt(canvas_dim), 2, 2));
+itemsRPS.push(new Rock(getRandomInt(canvas_dim), getRandomInt(canvas_dim), -2, 2));
+itemsRPS.push(new Paper(getRandomInt(canvas_dim), getRandomInt(canvas_dim), -1, -1));
+itemsRPS.push(new Paper(getRandomInt(canvas_dim), getRandomInt(canvas_dim), 1, 1));
+itemsRPS.push(new Scissors(getRandomInt(canvas_dim), getRandomInt(canvas_dim), 1, 2));
+
+function moveAllItems(){
     const ctx = document.getElementById("battlecanvas").getContext("2d");
+    ctx.clearRect(0, 0, canvas_dim, canvas_dim);
     ctx.font = "48px serif";
-    ctx.fillText(rock_emoji, tempcoord.x, tempcoord.y);
-    tempcoord.x += 1;
-    tempcoord.y += 1;
-    window.requestAnimationFrame(testmove);
+    ctx.textAlign = "center";   // put point in center
+
+    for(let i=0; i<itemsRPS.length; i++){
+        let currItem = itemsRPS[i];
+        currItem.move(canvas_dim, canvas_dim);
+        currItem.draw(ctx);
+    }
+    window.requestAnimationFrame(moveAllItems);
 }
-window.requestAnimationFrame(testmove);
-
-
+window.requestAnimationFrame(moveAllItems); // initial call
